@@ -126,6 +126,7 @@
 \begin{frame}{Don't backup everything!}
 
     Backups can get bloated if you include too many unimportant files!
+    \pause
 
     \begin{itemize}[<+->]
         \item A very small number of your dotfiles are actually useful to be
@@ -140,7 +141,7 @@
 
 \begin{frame}{The 3-2-1 rule}
 
-    The \textbf{3-2-1 backup rule} states that you should:
+    The \textbf{3-2-1 backup rule} states that you should: \pause
 
     Keep at least \textbf{three} copies of your data \pause on at least
     \textbf{two} different storage media \pause and store at least \textbf{one}
@@ -151,14 +152,112 @@
 
 \end{frame}
 
+\begin{frame}{File sync is not backup}
+
+    File sync is not a backup strategy! \pause It's an catastrophe distribution
+    system.
+
+\end{frame}
+
 \begin{frame}{A few other principles}
 
     \textbf{The best backups are automatic}, because otherwise you'll always
     default to ``oh, I can do that later''.
 
+    \pause
     \textbf{Tailor your backups to the data your are backing up.} For example,
     don't just backup all of the files that your database uses, rather export
     your database periodically and backup that export.
+
+    \pause
+    \textbf{Test your backups before you need them!} You want to be confident in
+    your backups. And if 2020 has taught us anything, it should be to expect the
+    unexpected.
+
+\end{frame}
+
+\section{My Backup Strategies}
+
+\begin{frame}{A bit of history}
+
+    \begin{itemize}[<+->]
+        \item For a long time, I just copied my photos and other important
+            documents to a hard drive. And I've done this on and off throughout
+            the years.
+        \item I have a fairly old copy of my photos from about 2012 on DVDs.
+        \item I started by using CrashPlan. It allowed P2P backups between
+            devices on the same LAN (as well as their servers).
+        \item I then migrated to Dropbox as a ``backup'' strategy.
+        \item I then migrated from Dropbox to self-hosted Nextcloud. But this
+            time, I added a Duplicity backup for my VPS.
+        \item Recently, I migrated to Syncthing for file sync and I'm using
+            Restic to backup my VPS.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{What I backup}
+
+    \begin{itemize}
+        \item Documents
+        \item Photos
+        \item Projects
+        \item Dotfiles
+        \item System configs
+        \item The data for programs that I self-host
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Backup method 1: Git}
+
+    I use Git to backup a lot of things. It's really good when all you have is
+    text.
+    \pause
+
+    \begin{itemize}[<+->]
+        \item All of my projects (besides some really old ones) are in Git
+            repos. I use either GitHub, GitLab, or Sourcehut to host all of my
+            repos.
+        \item All of the dotfiles that I care about are stored in a Git repo,
+            managed using Chezmoi.
+        \item I'm currently in the process of migrating to NixOS on all of my
+            machines, and everything is declarative.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Backup method 2: Restic}
+
+    I use Restic to backup everything else. I only backup my Linode VPS, though.
+
+    \pause
+    All data gets synced to my VPS, and then from there it gets backed up to
+    BackBlaze B2 using Restic.
+
+    \pause
+    Restic encrypts the backups by default. It stores data in a structure very
+    similar to Git.
+
+\end{frame}
+
+\begin{frame}{Future}
+
+    I want to also figure out a good way to have an on-site non-synchronized
+    Restic backup.
+
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}{This may be daunting}
+
+    My backup strategy is kinda complicated. Don't let that deter you!
+
+    \pause
+    I've built this up over many years and it's almost become an obsession of
+    mine. \pause And given that the apocalypse is upon us, maybe it's not that
+    bad of an obsession to have.
 
 \end{frame}
 
