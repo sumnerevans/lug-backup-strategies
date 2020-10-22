@@ -1,0 +1,168 @@
+\documentclass{lug}
+
+\usepackage{fontawesome}
+\usepackage{etoolbox}
+\usepackage{textcomp}
+\usepackage[nodisplayskipstretch]{setspace}
+\usepackage{xspace}
+\usepackage{verbatim}
+\usepackage{multicol}
+\usepackage{soul}
+\usepackage{attrib}
+
+\usepackage{amsmath,amssymb,amsthm}
+
+\usepackage[linesnumbered,commentsnumbered,ruled,vlined]{algorithm2e}
+\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
+\SetCommentSty{mycommfont}
+\SetKwComment{tcc}{ \# }{}
+\SetKwComment{tcp}{ \# }{}
+
+\usepackage{siunitx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{decorations.pathreplacing,calc,arrows.meta,shapes,graphs}
+
+\AtBeginEnvironment{minted}{\singlespacing\fontsize{10}{10}\selectfont}
+
+\makeatletter
+\patchcmd{\beamer@sectionintoc}{\vskip1.5em}{\vskip0.5em}{}{}
+\makeatother
+
+% Math stuffs
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\lcm}{\text{lcm}}
+\newcommand{\Inn}{\text{Inn}}
+\newcommand{\Aut}{\text{Aut}}
+\newcommand{\Ker}{\text{Ker}\ }
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+
+\newcommand{\yournewcommand}[2]{Something #1, and #2}
+
+\newenvironment{question}[1]{\par\textbf{Question #1.}\par}{}
+
+\newcommand{\pmidg}[1]{\parbox{\widthof{#1}}{#1}}
+\newcommand{\splitslide}[4]{
+    \noindent
+    \begin{minipage}{#1 \textwidth - #2 }
+        #3
+    \end{minipage}%
+    \hspace{ \dimexpr #2 * 2 \relax }%
+    \begin{minipage}{\textwidth - #1 \textwidth - #2 }
+        #4
+    \end{minipage}
+}
+
+\newcommand{\frameoutput}[1]{\frame{\colorbox{white}{#1}}}
+
+\newcommand{\tikzmark}[1]{%
+\tikz[baseline=-0.55ex,overlay,remember picture] \node[inner sep=0pt,] (#1)
+{\vphantom{T}};
+}
+
+\newcommand{\braced}[3]{%
+    \begin{tikzpicture}[overlay,remember picture]
+        \draw [thick,decorate,decoration={brace,raise=1ex,amplitude=4pt},blue] (#2.south west-|T1.south west) -- node[anchor=west,left,xshift=-1.8ex,text=olive]{#3} (#1.north west-|T1.south west);
+    \end{tikzpicture}
+}
+
+\newcommand{\make}{GNU \texttt{make}\xspace}
+
+\title{Backup Strategies}
+\author{Sumner Evans}
+\institute{Mines Linux Users Group}
+
+\begin{document}
+
+\section{Backup Principles}
+
+\begin{frame}[fragile]{Why backup? I}
+
+    \textbf{Computers were a mistake}. \pause But the bigger mistake was to give humans
+    control over the computers.
+
+    \pause
+    Sometimes certain humans may write a program along the lines of:
+    \begin{minted}{python}
+        with open("~/awesome", "w+") as f:
+            f.writeline("Awesome program\n")
+    \end{minted}
+
+    \pause which doesn't do what you expect because by default Python doesn't
+    expand \texttt{\textasciitilde} by default meaning this creates a directory
+    named \texttt{\textasciitilde} in your working directory.
+
+    \pause Naturally, to delete this directory, you would run \texttt{rm -rf
+    \textasciitilde}, right?
+
+    \pause (I may or may not have first-hand experience with this situation.)
+
+\end{frame}
+
+\begin{frame}[fragile]{Why backup? II}
+
+    \textbf{Ransomware} protection.
+
+    \pause If a malicious actor manages to
+    encrypt a bunch of the files on your filesystem and demands money to get the
+    key, you can just restore to a previous backup with minimal loss of
+    productivity.
+
+\end{frame}
+
+\begin{frame}{Why not backup?}
+
+    If you don't have any data that is important to you, \pause and like setting
+    up your computer over and over again, \pause then you don't need a backup.
+
+    \pause I'd bet that you have \textit{something} that you want to backup.
+
+\end{frame}
+
+\begin{frame}{Don't backup everything!}
+
+    Backups can get bloated if you include too many unimportant files!
+
+    \begin{itemize}[<+->]
+        \item A very small number of your dotfiles are actually useful to be
+            backed up.
+        \item Likewise only a few files in \texttt{/etc} actually matter.
+        \item \texttt{/var} sometimes contains things that are worth backing up.
+        \item On Windows, it's pointless to backup
+            \texttt{C:\textbackslash\textbackslash Program Files}.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{The 3-2-1 rule}
+
+    The \textbf{3-2-1 backup rule} states that you should:
+
+    Keep at least \textbf{three} copies of your data \pause on at least
+    \textbf{two} different storage media \pause and store at least \textbf{one}
+    of the copies off-site.
+
+    \pause This may sound daunting, but keep in mind that \textbf{any backup is
+    better than no backup!} You have to start somewhere.
+
+\end{frame}
+
+\begin{frame}{A few other principles}
+
+    \textbf{The best backups are automatic}, because otherwise you'll always
+    default to ``oh, I can do that later''.
+
+    \textbf{Tailor your backups to the data your are backing up.} For example,
+    don't just backup all of the files that your database uses, rather export
+    your database periodically and backup that export.
+
+\end{frame}
+
+\end{document}
+% Local Variables:
+% TeX-command-extra-options: "-shell-escape"
+% End:
