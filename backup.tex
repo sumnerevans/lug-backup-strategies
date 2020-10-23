@@ -222,7 +222,14 @@
         \item All of the dotfiles that I care about are stored in a Git repo,
             managed using Chezmoi.
         \item I'm currently in the process of migrating to NixOS on all of my
-            machines, and everything is declarative.
+            machines, and everything is \textit{declarative} and
+            \textit{immutable}.
+
+            \pause[\thebeamerpauses]
+            I don't have to backup most of my configs because they are already
+            procedurally generated, and I literally \textit{can't} make changes
+            without updating my NixOS config which is backed up with Git.
+
     \end{itemize}
 
 \end{frame}
@@ -262,6 +269,20 @@
     \pause
     Start somewhere, even if it's just copying important files to a hard drive,
     and go from there.
+
+\end{frame}
+
+\begin{frame}{Start by deciding on an ``end-state''}
+
+    Create a backup strategy ``ideal state''. \pause Hopefully it integrates the
+    3-2-1 principle and is automated.
+
+    \pause
+    Then, figure out a way to get a quick win that fits into your overall
+    strategy.
+
+    \pause
+    Then build more and more infrastructure around it.
 
 \end{frame}
 
