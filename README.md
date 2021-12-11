@@ -3,7 +3,7 @@
 
 **Author:** [Sumner Evans](https://sumnerevans.com)
 
-[**Rendered PDF**](https://git.sr.ht/~sumner/lug-backup-strategies/blob/master/backup.pdf)
+[**Rendered PDF**](./backup.pdf)
 
 ## Topics Covered
 
